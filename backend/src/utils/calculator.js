@@ -82,16 +82,16 @@ function cal_quote(data) {
 exports.cal_quote = cal_quote;
 
 // test code
-const data = {
-  cover_type: "family",
-  age1: 40,
-  history1: "no",
-  age2: 35,
-  history2: "yes",
-  hospital_cover: "silver",
-  extras_cover: "standard",
-  payment: "yearly",
-  discount: 5,
-};
+// const data = {
+//   cover_type: "family",
+//   age1: 40,
+//   history1: "no",
+//   age2: 35,
+//   history2: "yes",
+//   hospital_cover: "silver",
+//   extras_cover: "standard",
+//   payment: "yearly",
+//   discount: 5,
+// };
 
-console.log(cal_quote(data));
+// console.log(cal_quote(data));

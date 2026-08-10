@@ -1,8 +1,5 @@
----- Drop table if it already exists
---DROP TABLE IF EXISTS quotes;
-
--- Create the main quotes table
-CREATE TABLE quotes (
+-- Create the main quotes table if not already existing
+CREATE TABLE IF NOT EXISTS quotes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     customer_name TEXT NOT NULL,
     cover_type TEXT NOT NULL CHECK(cover_type IN ('single', 'couple', 'family')),
