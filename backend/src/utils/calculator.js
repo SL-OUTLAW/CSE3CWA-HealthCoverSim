@@ -87,7 +87,7 @@ function cal_quote(data) {
   };
 }
 
-exports.cal_quote = cal_quote;
+module.exports = {cal_quote}
 
 // test code
 // const data = {
