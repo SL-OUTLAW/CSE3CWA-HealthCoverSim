@@ -14,19 +14,29 @@ function validateQuote(req, res, next) {
     return res.status(400).json({ error: "Customer name is required" });
   }
 
+  if (
+    typeof data.customer_name !== "string" ||
+    !/^[A-Za-z\s]+$/.test(data.customer_name)
+  ) {
+    return res
+      .status(400)
+      .json({ error: "Customer name must contain only letters" });
+  }
+
   if (!data.cover_type || !VALID_COVER_TYPES.includes(data.cover_type)) {
     return res
       .status(400)
       .json({ error: "Cover type must be single, couple, or family" });
   }
 
-  // applicant 1
+  // applicant 1 age
+
   if (!data.applicant1_age) {
     return res.status(400).json({ error: "Applicant 1 age is required" });
   }
   // if age is not null
   const age1 = data.applicant1_age;
-  if (age1 < 18 || age1 > 100) {
+  if (!Number.isInteger(age1) || age1 < 18 || age1 > 100) {
     return res
       .status(400)
       .json({ error: "Applicant 1 age must be between 18 and 100" });
@@ -54,7 +64,7 @@ function validateQuote(req, res, next) {
     }
     // if age is not null
     const age2 = data.applicant2_age;
-    if (age2 < 18 || age2 > 100) {
+    if (!Number.isInteger(age2) || age2 < 18 || age2 > 100) {
       return res
         .status(400)
         .json({ error: "Applicant 2 age must be between 18 and 100" });
@@ -91,7 +101,7 @@ function validateQuote(req, res, next) {
   // discount must be 0-10
   if (data.annual_discount !== undefined) {
     const discount = data.annual_discount;
-    if (discount < 0 || discount > 10) {
+    if (typeof discount !== "number" || discount < 0 || discount > 10) {
       return res
         .status(400)
         .json({ error: "Annual discount must be between 0% and 10%" });

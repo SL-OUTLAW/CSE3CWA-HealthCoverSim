@@ -9,7 +9,7 @@ const {
   deleteQuote,
 } = require("../models/quoteModel");
 
-const { validator } = require("../middleware/validator");
+const { validateQuote } = require("../middleware/validator");
 
 // dev test route
 router.get("/test-api", (req, res) => {
@@ -19,7 +19,7 @@ router.get("/test-api", (req, res) => {
 // API endpoints
 
 // POST create quote
-router.post("/", validator, async (req, res) => {
+router.post("/", validateQuote, async (req, res) => {
   try {
     // data from frontend
     // console.log("data received", req.body);
@@ -40,7 +40,7 @@ router.post("/", validator, async (req, res) => {
 });
 
 // GET read all quote
-router.get("/", validator, async (req, res) => {
+router.get("/", validateQuote, async (req, res) => {
   try {
     let quoteData = req.body;
 
@@ -56,7 +56,7 @@ router.get("/", validator, async (req, res) => {
 });
 
 // GET read 1 quote by ID
-router.get("/:id", validator, async (req, res) => {
+router.get("/:id", validateQuote, async (req, res) => {
   try {
     // console.log("data received", req.params);
 
@@ -83,7 +83,7 @@ router.get("/:id", validator, async (req, res) => {
 });
 
 // PUT update quote by id
-router.put("/:id", validator, async (req, res) => {
+router.put("/:id", validateQuote, async (req, res) => {
   try {
     // data from frontend
     console.log("data received", req.body);
@@ -106,7 +106,7 @@ router.put("/:id", validator, async (req, res) => {
 });
 
 // DELETE delete quote by id
-router.delete("/:id", validator, async (req, res) => {
+router.delete("/:id", validateQuote, async (req, res) => {
   try {
     let id = parseInt(req.params.id);
 
