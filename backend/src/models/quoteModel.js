@@ -1,5 +1,3 @@
-// backend/src/models/quoteModel.js
-
 // CREATE - create a new quote row
 function createQuote(db, quoteData, calculatedQuote) {
   return new Promise((resolve, reject) => {
