@@ -12,30 +12,37 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const dbPath = path.join(__dirname, "../db/healthcover.db");
+const dbExists = fs.existsSync(dbPath);
+
 // Connect to db
-const db = new sqlite3.Database(
-  path.join(__dirname, "../db/healthcover.db"),
-  (err) => {
-    if (err) {
-      console.error(err.message);
-      return;
+const db = new sqlite3.Database(dbPath, (err) => {
+  if (err) {
+    console.error("DB Error: ", err.message);
+    return;
+  }
+  console.log("Created SQLite database connection");
+
+  if (!dbExists) {
+    console.log("Database file not found. Initializing schema from init.sql");
+    try {
+      const initSqlPath = path.join(__dirname, "../db/init.sql");
+      const initSql = fs.readFileSync(initSqlPath, "utf8");
+
+      db.exec(initSql, (execErr) => {
+        if (execErr) {
+          console.error("Error executing init.sql:", execErr.message);
+        } else {
+          console.log("Database initialized from init.sql");
+        }
+      });
+    } catch (fileErr) {
+      console.error("Error reading init.sql: ", fileErr.message);
     }
-    console.log("connected to database");
-
-    const initSqlPath = path.join(__dirname, "../db/init.sql");
-    const initSql = fs.readFileSync(initSqlPath, "utf8");
-
-    db.exec(initSql, (err) => {
-      if (err) {
-        console.error("error executing init.sql - ", err.message);
-      } else {
-        console.log(
-          "Database initialized from init.sql",
-        );
-      }
-    });
-  },
-);
+  } else {
+    console.log("Database exists, Skipping init.sql");
+  }
+});
 
 app.locals.db = db;
 app.use("/api/quotes", quotesRoutes);
