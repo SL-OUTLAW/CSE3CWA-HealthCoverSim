@@ -50,7 +50,7 @@ function getQuoteById(db, id) {
 }
 
 // UPDATE - edit quote
-function updateQuote(db, id, quoteData, premiumResult) {
+function updateQuote(db, id, quoteData, calculatedQuote) {
   return new Promise((resolve, reject) => {
     const sql = `
             UPDATE quotes SET
@@ -78,7 +78,7 @@ function updateQuote(db, id, quoteData, premiumResult) {
 
     db.run(sql, params, function (err) {
       if (err) reject(err);
-      else resolve({ id: id, ...premiumResult });
+      else resolve({ id: id, ...calculatedQuote });
     });
   });
 }
@@ -87,8 +87,13 @@ function updateQuote(db, id, quoteData, premiumResult) {
 function deleteQuote(db, id) {
   return new Promise((resolve, reject) => {
     db.run("DELETE FROM quotes WHERE id = ?", [id], function (err) {
-      if (err) reject(err);
-      else resolve({ deleted: true });
+      if (err) {
+        reject(err);
+      }
+      // 0 rows changed = 0 deleted
+      else if (this.changes === 0) {
+        reject(new Error(`Quote ${id} not found`));
+      } else resolve({ deleted: true });
     });
   });
 }
