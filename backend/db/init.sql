@@ -1,4 +1,4 @@
--- Create the main quotes table if not already existing
+-- Create the quotes table if not already existing
 CREATE TABLE IF NOT EXISTS quotes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     customer_name TEXT NOT NULL,
