@@ -9,7 +9,7 @@ function App() {
     <BrowserRouter>
       <nav>
         <h1>HealthCoverSim</h1>
-        <Link to="/">Home (List)</Link>
+        <Link to="/">Home</Link>
         <Link to="/quotes/new">New Quote</Link>
         <Link to="/quotes">View Quotes</Link>
       </nav>
