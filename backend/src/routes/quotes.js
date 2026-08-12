@@ -40,7 +40,7 @@ router.post("/", validateQuote, async (req, res) => {
 });
 
 // GET read all quote
-router.get("/", validateQuote, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     let quoteData = req.body;
 
@@ -56,7 +56,7 @@ router.get("/", validateQuote, async (req, res) => {
 });
 
 // GET read 1 quote by ID
-router.get("/:id", validateQuote, async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     // console.log("data received", req.params);
 
@@ -106,7 +106,7 @@ router.put("/:id", validateQuote, async (req, res) => {
 });
 
 // DELETE delete quote by id
-router.delete("/:id", validateQuote, async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     let id = parseInt(req.params.id);
 
