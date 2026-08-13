@@ -2,13 +2,11 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import api from "../services/api";
 
-// If id exists = edit mode
 function QuoteForm() {
   const { id } = useParams();
   const navigate = useNavigate();
   const isEditMode = Boolean(id);
 
-  // form state
   const [formData, setFormData] = useState({
     customer_name: "",
     cover_type: "single",
@@ -26,14 +24,12 @@ function QuoteForm() {
   const [loading, setLoading] = useState(false);
   const [fetchError, setFetchError] = useState(null);
 
-  // data for edit if in edit mode
   useEffect(() => {
     if (isEditMode) {
       const fetchQuote = async () => {
         try {
           setLoading(true);
           const response = await api.get(`/quotes/${id}`);
-          // set existing data
           setFormData({
             customer_name: response.data.customer_name || "",
             cover_type: response.data.cover_type || "single",
@@ -61,7 +57,6 @@ function QuoteForm() {
     }
   }, [id, isEditMode]);
 
-  // handle input changes - save to state
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -70,21 +65,26 @@ function QuoteForm() {
     }));
   };
 
-  // create or update
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       setLoading(true);
+
+      const payload = {
+        ...formData,
+        applicant1_age: Number(formData.applicant1_age),
+        applicant2_age: Number(formData.applicant2_age),
+        annual_discount: Number(formData.annual_discount),
+      };
+
       let response;
 
       if (isEditMode) {
-        // PUT request to update
-        response = await api.put(`/quotes/${id}`, formData);
+        response = await api.put(`/quotes/${id}`, payload);
         navigate(`/quotes/${id}`);
       } else {
-        // POST request to create
-        response = await api.post("/quotes", formData);
+        response = await api.post("/quotes", payload);
         const newId = response.data.id;
         navigate(`/quotes/${newId}`);
       }
@@ -104,150 +104,245 @@ function QuoteForm() {
     return <p>Error: {fetchError}</p>;
   }
 
-  // render
   return (
-    <div>
-      <h2>{isEditMode ? "Edit Quote" : "Create New Quote"}</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="form-container">
+      <h2 className="form-title">{isEditMode ? "Edit Quote" : "New Quote"}</h2>
+      <p className="form-sub-title">
+        Enter applicant details to generate a premium estimate.
+      </p>
+      <form onSubmit={handleSubmit} className="form">
         <div>
-          <label>Customer Name</label>
+          <p className="form-category">CUSTOMER</p>
+          <hr className="form-divider" />
+        </div>
+        <div className="form-input-container">
+          <label className="input-label">Customer Name</label>
           <input
+            className="form-text-input"
             type="text"
             name="customer_name"
             value={formData.customer_name}
+            placeholder="e.g. John Doe"
             onChange={handleChange}
+            // pattern for only text and spaces
+            onInvalid={(e) => {
+              e.target.setCustomValidity("Please enter text only.");
+            }}
+            onInput={(e) => {
+              e.target.setCustomValidity("");
+            }}
+            pattern="[A-Za-z\s]+"
             required
           />
         </div>
+        <div className="form-input-container">
+          <label className="input-label">Cover Type</label>
+          <div className="radio-options-container">
+            <label
+              className="radio-options-label"
+              style={{
+                borderTopLeftRadius: "5px",
+                borderBottomLeftRadius: "5px",
+              }}
+            >
+              <input
+                className="radio-options"
+                type="radio"
+                name="cover_type"
+                value="single"
+                checked={formData.cover_type === "single"}
+                onChange={handleChange}
+              />
+              Single
+            </label>
 
-        <div>
-          <label>Cover Type</label>
-          <select
-            name="cover_type"
-            value={formData.cover_type}
-            onChange={handleChange}
-          >
-            <option value="single">Single</option>
-            <option value="couple">Couple</option>
-            <option value="family">Family</option>
-          </select>
+            <label className="radio-options-label">
+              <input
+                className="radio-options"
+                type="radio"
+                name="cover_type"
+                value="couple"
+                checked={formData.cover_type === "couple"}
+                onChange={handleChange}
+              />
+              Couple
+            </label>
+
+            <label
+              className="radio-options-label"
+              style={{
+                borderTopRightRadius: "5px",
+                borderBottomRightRadius: "5px",
+              }}
+            >
+              <input
+                className="radio-options"
+                type="radio"
+                name="cover_type"
+                value="family"
+                checked={formData.cover_type === "family"}
+                onChange={handleChange}
+              />
+              Family
+            </label>
+          </div>
         </div>
 
-        <h3>Applicant 1</h3>
-        <div>
-          <label>Age</label>
-          <input
-            type="number"
-            name="applicant1_age"
-            value={formData.applicant1_age}
-            onChange={handleChange}
-            min="18"
-            max="100"
-            required
-          />
-        </div>
-        <div>
-          <label>Hospital Cover History</label>
-          <select
-            name="applicant1_cover_history"
-            value={formData.applicant1_cover_history}
-            onChange={handleChange}
-          >
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-            <option value="not sure">Not sure</option>
-          </select>
+        <p className="form-category">APPLICANT 1</p>
+        <hr className="form-divider" />
+
+        <div className="form-input-container-double">
+          <div className="form-input-container" style={{ marginBottom: "0px" }}>
+            <label className="input-label">Age</label>
+            <input
+              className="form-text-input"
+              type="number"
+              name="applicant1_age"
+              value={formData.applicant1_age}
+              onChange={handleChange}
+              min="18"
+              max="100"
+              required
+            />
+          </div>
+          <div className="form-input-container">
+            <label className="input-label">Hospital Cover History</label>
+            <select
+              className="form-select"
+              name="applicant1_cover_history"
+              value={formData.applicant1_cover_history}
+              onChange={handleChange}
+            >
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+              <option value="not sure">Not sure</option>
+            </select>
+          </div>
         </div>
 
-        {/* conditional applicant 2 - only for Couple/Family) */}
+        <div>
+          <label className="form-subtext">18-100</label>
+        </div>
+
         {(formData.cover_type === "couple" ||
           formData.cover_type === "family") && (
           <div>
-            <h3>Applicant 2</h3>
-            <div>
-              <label>Age</label>
-              <input
-                type="number"
-                name="applicant2_age"
-                value={formData.applicant2_age}
-                onChange={handleChange}
-                min="18"
-                max="100"
-                required
-              />
+            <p className="form-category">APPLICANT 2</p>
+            <hr className="form-divider" />
+            <div className="form-input-container-double">
+              <div
+                className="form-input-container"
+                style={{ marginBottom: "0px" }}
+              >
+                <label className="input-label">Age</label>
+                <input
+                  className="form-text-input"
+                  type="number"
+                  name="applicant2_age"
+                  value={formData.applicant2_age}
+                  onChange={handleChange}
+                  min="18"
+                  max="100"
+                  required
+                />
+              </div>
+              <div className="form-input-container">
+                <label className="input-label">Hospital Cover History</label>
+                <select
+                  className="form-select"
+                  name="applicant2_cover_history"
+                  value={formData.applicant2_cover_history}
+                  onChange={handleChange}
+                >
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                  <option value="not sure">Not sure</option>
+                </select>
+              </div>
             </div>
             <div>
-              <label>Hospital Cover History</label>
-              <select
-                name="applicant2_cover_history"
-                value={formData.applicant2_cover_history}
-                onChange={handleChange}
-              >
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-                <option value="not sure">Not sure</option>
-              </select>
+              <label className="form-subtext">18-100</label>
             </div>
           </div>
         )}
 
-        <div>
-          <label>Hospital Cover</label>
-          <select
-            name="hospital_cover"
-            value={formData.hospital_cover}
-            onChange={handleChange}
-          >
-            <option value="none">None</option>
-            <option value="basic">Basic</option>
-            <option value="bronze">Bronze</option>
-            <option value="silver">Silver</option>
-            <option value="gold">Gold</option>
-          </select>
+        <p className="form-category">COVER TIERS</p>
+        <hr className="form-divider" />
+
+        <div className="form-input-container-double">
+          <div className="form-input-container">
+            <label className="input-label">Hospital Cover</label>
+            <select
+              className="form-select"
+              name="hospital_cover"
+              value={formData.hospital_cover}
+              onChange={handleChange}
+            >
+              <option value="none">None</option>
+              <option value="basic">Basic</option>
+              <option value="bronze">Bronze</option>
+              <option value="silver">Silver</option>
+              <option value="gold">Gold</option>
+            </select>
+            <label className="form-subtext">
+              LHC Loading applies here only
+            </label>
+          </div>
+
+          <div className="form-input-container">
+            <label className="input-label">Extras Cover</label>
+            <select
+              className="form-select"
+              name="extras_cover"
+              value={formData.extras_cover}
+              onChange={handleChange}
+            >
+              <option value="none">None</option>
+              <option value="basic">Basic</option>
+              <option value="standard">Standard</option>
+              <option value="premium">Premium</option>
+            </select>
+          </div>
         </div>
 
-        <div>
-          <label>Extras Cover</label>
-          <select
-            name="extras_cover"
-            value={formData.extras_cover}
-            onChange={handleChange}
-          >
-            <option value="none">None</option>
-            <option value="basic">Basic</option>
-            <option value="standard">Standard</option>
-            <option value="premium">Premium</option>
-          </select>
+        <p className="form-category">PAYMENT</p>
+        <hr className="form-divider" />
+
+        <div className="form-input-container-double">
+          <div className="form-input-container">
+            <label className="input-label">Payment Frequency</label>
+            <select
+              className="form-select"
+              name="payment_frequency"
+              value={formData.payment_frequency}
+              onChange={handleChange}
+            >
+              <option value="monthly">Monthly</option>
+              <option value="yearly">Yearly</option>
+            </select>
+          </div>
+
+          <div className="form-input-container">
+            <label className="input-label">Annual Discount (%)</label>
+            <input
+              className="form-text-input"
+              type="number"
+              name="annual_discount"
+              value={formData.annual_discount}
+              onChange={handleChange}
+              min="0"
+              max="10"
+              step="0.1"
+            />
+          </div>
         </div>
 
-        <div>
-          <label>Payment Frequency</label>
-          <select
-            name="payment_frequency"
-            value={formData.payment_frequency}
-            onChange={handleChange}
-          >
-            <option value="monthly">Monthly</option>
-            <option value="yearly">Yearly</option>
-          </select>
-        </div>
-
-        <div>
-          <label>Annual Discount (%)</label>
-          <input
-            type="number"
-            name="annual_discount"
-            value={formData.annual_discount}
-            onChange={handleChange}
-            min="0"
-            max="10"
-            step="0.1"
-          />
-        </div>
-
-        <div>
-          <label>Notes</label>
+        <div className="form-input-container">
+          <label className="input-label" style={{ marginTop: "30px" }}>
+            Notes (optional)
+          </label>
           <textarea
+            className="notes-input"
             name="notes"
             value={formData.notes}
             onChange={handleChange}
@@ -255,15 +350,17 @@ function QuoteForm() {
           />
         </div>
 
-        <div>
-          <button type="submit" disabled={loading}>
+        <div className="form-btn-container">
+          <Link className="form-cancel" to="/">
+            Cancel
+          </Link>
+          <button className="form-create" type="submit" disabled={loading}>
             {loading
               ? "Saving..."
               : isEditMode
                 ? "Update Quote"
                 : "Create Quote"}
           </button>
-          <Link to="/quotes">Cancel</Link>
         </div>
       </form>
     </div>

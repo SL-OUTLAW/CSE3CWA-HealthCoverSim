@@ -1,0 +1,330 @@
+body {
+  background-color: #eef0e9;
+}
+
+.nav-bar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.nav-bar {
+  padding-inline: 20px;
+  padding-block: 0px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: auto;
+  height: 70px;
+  background-color: #eef0e9;
+}
+
+.nav-title {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-weight: 600;
+  color: #424545;
+  font-size: 24px;
+  margin-right: auto;
+  min-width: 300px;
+}
+
+.nav-item {
+  display: inline-block;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16px;
+  text-decoration: none;
+  color: #1b2a2e;
+  box-sizing: border-box;
+  border: 1px solid #c3cabe;
+  border-radius: 4px;
+  background-color: transparent;
+  padding-inline: 20px;
+  padding-top: 3px;
+  padding-bottom: 6px;
+}
+
+.nav-item:hover {
+  background-color: #e4e7dd;
+}
+
+.nav-item-active {
+  display: inline-block;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16px;
+  text-decoration: none;
+  color: white;
+  box-sizing: border-box;
+  border: 1px solid #0e5c56;
+  border-radius: 4px;
+  background-color: #0e5c56;
+  padding-inline: 20px;
+  padding-top: 3px;
+  padding-bottom: 6px;
+}
+
+.divider {
+  border: none;
+  background-color: #c3cabe;
+  width: 100%;
+  height: 1px;
+  margin-bottom: 0px;
+}
+
+.homepg-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-inline: 70px;
+  row-gap: 1px;
+  margin-top: 120px;
+}
+
+.homepg-t1 {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #0e5c56;
+}
+
+.homepg-t2 {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  text-align: center;
+  font-size: 44px;
+  font-weight: 600;
+  margin: 0px;
+}
+
+.homepg-t3 {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+  color: #6b7570;
+}
+
+.homepg-nav-container {
+  display: flex;
+  margin-top: 30px;
+  gap: 10px;
+}
+
+.homepg-nav-item-primary {
+  display: inline-block;
+  text-decoration: none;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16px;
+  color: white;
+  box-sizing: border-box;
+  border: 1px solid #0e5c56;
+  border-radius: 4px;
+  background-color: #0e5c56;
+  padding-inline: 30px;
+  padding-top: 13px;
+  padding-bottom: 15px;
+}
+
+.homepg-nav-item-primary:hover {
+  background-color: #0a413d;
+}
+
+.homepg-nav-item-secondary {
+  display: inline-block;
+  text-decoration: none;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16px;
+  color: black;
+  box-sizing: border-box;
+  border: 1px solid #c3cabe;
+  border-radius: 4px;
+  background-color: transparent;
+  padding-inline: 30px;
+  padding-top: 13px;
+  padding-bottom: 15px;
+}
+
+.homepg-nav-item-secondary:hover {
+  background-color: #e4e7dd;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #faf9f3;
+  border: 1px solid #c3cabe;
+  border-radius: 5px;
+  margin-top: 130px;
+  margin-bottom: 60px;
+  margin-inline: auto;
+  width: 50%;
+  padding: 40px;
+}
+
+.form-title {
+  margin-block: 0px;
+  margin-right: auto;
+}
+
+.form-sub-title {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 12px;
+  color: #6b7570;
+  margin-right: auto;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.form {
+  width: 100%;
+}
+
+.form-category {
+  margin-top: 35px;
+  margin-bottom: 0px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #0e5c56;
+}
+
+.form-divider {
+  border: none;
+  background-color: #c3cabe;
+  width: 100%;
+  height: 1px;
+  margin-top: 2px;
+  margin-bottom: 25px;
+  margin-right: auto;
+}
+
+.form-input-container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin-block: 0px;
+}
+
+.input-label {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+.form-text-input {
+  background-color: white;
+  border: 1px solid #c3cabe;
+  border-radius: 5px;
+  height: 30px;
+  padding-left: 10px;
+  margin-block: 5px;
+}
+
+.radio-options {
+  appearance: none;
+  width: 0px;
+  margin: 0px;
+}
+
+.radio-options-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  height: 30px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  background-color: #ffffff;
+  color: black;
+  border: 1px solid #c3cabe;
+  padding-inline: 10px;
+  margin-block: 5px;
+}
+
+.radio-options-label:has(.radio-options:checked) {
+  background-color: #0e5c56;
+  color: white;
+  border: 1px solid #c3cabe;
+  padding-inline: 10px;
+}
+
+.form-input-container-double {
+  display: flex;
+  margin-block: 0px;
+  gap: 30px;
+}
+
+.form-subtext {
+  margin: 0px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  color: #6b7570;
+}
+
+.form-select {
+  height: 34px;
+  margin-block: 5px;
+  border: 1px solid #c3cabe;
+  border-radius: 5px;
+  padding-left: 5px;
+}
+
+.notes-input {
+  margin-top: 5px;
+  margin-bottom: 40px;
+  border: 1px solid #c3cabe;
+  border-radius: 5px;
+  padding-left: 5px;
+  height: 100px;
+  min-height: 100px;
+  max-width: 100%;
+  resize: none;
+}
+
+.form-btn-container {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 15px;
+}
+
+.form-cancel {
+  display: inline-block;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16px;
+  text-decoration: none;
+  color: #1b2a2e;
+  box-sizing: border-box;
+  border: 1px solid #c3cabe;
+  border-radius: 4px;
+  background-color: transparent;
+  padding-inline: 20px;
+  padding-top: 4px;
+  padding-bottom: 6px;
+  height: 100%;
+}
+
+.form-cancel:hover {
+  background-color: #e4e7dd;
+}
+
+.form-create {
+  text-decoration: none;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16px;
+  color: white;
+  box-sizing: border-box;
+  border: 1px solid #0e5c56;
+  border-radius: 4px;
+  background-color: #0e5c56;
+  padding-inline: 20px;
+  padding-top: 4px;
+  padding-bottom: 6px;
+  height: 100%;
+}
+
+
