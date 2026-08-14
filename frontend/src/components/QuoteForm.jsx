@@ -63,6 +63,15 @@ function QuoteForm() {
       ...prev,
       [name]: value,
     }));
+
+    if (name === "payment_frequency") {
+      setFormData((prev) => ({
+        ...prev,
+        payment_frequency: value,
+        annual_discount: value === "monthly" ? 0 : prev.annual_discount,
+      }));
+      return;
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -333,6 +342,7 @@ function QuoteForm() {
               min="0"
               max="10"
               step="0.1"
+              disabled={formData.payment_frequency === "monthly"}
             />
           </div>
         </div>
