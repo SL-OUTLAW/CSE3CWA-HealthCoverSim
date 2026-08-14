@@ -31,16 +31,17 @@ function QuoteList() {
   if (loading) {
     return;
     <div className="view-state">
-      <p>Loading quotes...</p>;
+      <p>Loading quotes...</p>
     </div>;
   }
 
   // error state
   if (error) {
-    return;
-    <dir className="view-state">
-      <p>Error: {error}</p>;
-    </dir>;
+    return (
+      <dir className="view-state">
+        <p>Error: {error}</p>
+      </dir>
+    );
   }
 
   // empty state
