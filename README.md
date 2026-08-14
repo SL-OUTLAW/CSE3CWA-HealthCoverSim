@@ -192,7 +192,8 @@ Monthly payers see the Monthly premium `(monthly_premium)` and the Yearly premiu
 
 - **Tool used:** Claude (Anthropic)
 
-- **What it helped with:** Scaffolding the Backend and Frontend folder structure, working through the pricing and LHC loading logic against the worked example in the assignment brief, drafting this README and Regex pattern for validation. <small><small><small>**Regex is hard T_T**</small></small></small>
+- **What it helped with:** Scaffolding the Backend and Frontend folder structure, working through the pricing and LHC loading logic against the worked example in the assignment brief, drafting this README and Regex pattern for validation.  
+  _Regex is hard T_T_
 
 - **What I personally checked/implemented:** I implemented and tested the Express API routes and SQLite queries myself, verified the calculation logic against the worked example by hand before wiring it into the UI and Frontend HTML and CSS Styling - including all the errors and bugs.
 
@@ -203,4 +204,5 @@ Monthly payers see the Monthly premium `(monthly_premium)` and the Yearly premiu
 - The LHC loading model is simplified - the real Australian scheme caps the maximum loading and removes it after 10 years of continuous cover; this simulator applies an uncapped `(age − 30) x 2%` with no expiry.
 
 ---
+
 ###### **_OUTLAW_**
