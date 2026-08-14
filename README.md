@@ -74,10 +74,9 @@ CSE3CWA-HealthCoverSim/
 
 ## How to install and run the project
 
-### Prerequisites
+### Required
 
 - [Node.js](https://nodejs.org/) (v18+ recommended)
-- npm (comes with Node.js)
 
 ### 1. Clone the repository
 
