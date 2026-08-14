@@ -67,10 +67,11 @@ function QuoteSummary({ data }) {
     : 0;
 
   return (
-    <div>
-      <div>
-        <h2>{customer_name}</h2>
-        <div>
+    <div className="summary-container">
+      <div className="summary-header">
+        <p className="label">Summary</p>
+        <h2 className="name">{customer_name}</h2>
+        <div className="meta">
           <span>{cover_type}</span>
           <span>{hospital_cover} hospital</span>
           <span>{extras_cover} extras</span>
@@ -78,165 +79,161 @@ function QuoteSummary({ data }) {
         </div>
       </div>
 
-      <hr />
-      <div>
-        <h4>MONTHLY PREMIUM</h4>
-        <p>${monthly_premium}</p>
+      <hr className="summary-divider" />
+
+      <div className="monthly-premium">
+        <p className="label">Monthly Premium</p>
+        <p className="amount">${monthly_premium}</p>
       </div>
 
-      <hr />
+      <hr className="summary-divider" />
+
       <div>
-        <h4>HOSPITAL COVER</h4>
+        <h4 className="section-title">Hospital Cover</h4>
 
-        <div>
-          <p>
-            <strong>Applicant 1</strong> - {hospital_cover} base
-          </p>
-          <p>${baseHospitalPrice.toFixed(2)}</p>
-        </div>
-        <div>
-          <p>
-            <strong>Applicant 1 - LHC loading</strong>
-          </p>
-          <p>
-            {applicant1_lhc !== null && applicant1_lhc !== undefined
-              ? `${(applicant1_lhc * 100).toFixed(0)}%`
-              : "Unknown"}
-          </p>
-          {applicant1_lhc === null || applicant1_lhc === undefined ? (
-            <p>Unknown - loading not applied</p>
-          ) : applicant1_lhc === 0 ? (
-            <p>No loading applied</p>
-          ) : (
-            <p>
-              {applicant1_age} years old, no prior cover -{" "}
-              {(applicant1_lhc * 100).toFixed(0)}% loading
-            </p>
-          )}
+        <div className="detail-line">
+          <span className="label">Applicant 1 - {hospital_cover} base</span>
+          <span className="value">${baseHospitalPrice.toFixed(2)}</span>
         </div>
 
-        <div>
-          <p>
-            <strong>Applicant 1 - loaded hospital cost</strong>
-          </p>
-          <p>${applicant1LoadedCost.toFixed(2)}</p>
+        <div className="lhc-line">
+          <div className="detail-line">
+            <span className="label">Applicant 1 - LHC loading</span>
+            <span className="value">
+              {applicant1_lhc !== null && applicant1_lhc !== undefined
+                ? `${(applicant1_lhc * 100).toFixed(0)}%`
+                : "Unknown"}
+            </span>
+          </div>
+          <div className="detail-line">
+            <span className="note">
+              {applicant1_lhc === null || applicant1_lhc === undefined
+                ? "Unknown - loading not applied"
+                : applicant1_lhc === 0
+                  ? "No loading applied"
+                  : `${applicant1_age} years old, no prior cover - ${(applicant1_lhc * 100).toFixed(0)}% loading`}
+            </span>
+          </div>
         </div>
 
-        {/* applicant 2 if Couple or Family */}
+        <div className="loaded-cost-line">
+          <div className="detail-line">
+            <span className="label">Applicant 1 - loaded hospital cost</span>
+            <span className="value">${applicant1LoadedCost.toFixed(2)}</span>
+          </div>
+        </div>
+
         {isCoupleOrFamily && (
           <>
-            <div>
-              <p>
-                <strong>Applicant 2</strong> - {hospital_cover} base
-              </p>
-              <p>${baseHospitalPrice.toFixed(2)}</p>
+            <div className="detail-line" style={{ marginTop: "12px" }}>
+              <span className="label">Applicant 2 - {hospital_cover} base</span>
+              <span className="value">${baseHospitalPrice.toFixed(2)}</span>
             </div>
 
-            <div>
-              <p>
-                <strong>Applicant 2 - LHC loading</strong>
-              </p>
-              <p>
-                {applicant2_lhc !== null && applicant2_lhc !== undefined
-                  ? `${(applicant2_lhc * 100).toFixed(0)}%`
-                  : "Unknown"}
-              </p>
-              {applicant2_lhc === null || applicant2_lhc === undefined ? (
-                <p>Unknown - loading not applied</p>
-              ) : applicant2_lhc === 0 ? (
-                <p>No loading applied</p>
-              ) : (
-                <p>
-                  {applicant2_age} years old, no prior cover -{" "}
-                  {(applicant2_lhc * 100).toFixed(0)}% loading
-                </p>
-              )}
+            <div className="lhc-line">
+              <div className="detail-line">
+                <span className="label">Applicant 2 - LHC loading</span>
+                <span className="value">
+                  {applicant2_lhc !== null && applicant2_lhc !== undefined
+                    ? `${(applicant2_lhc * 100).toFixed(0)}%`
+                    : "Unknown"}
+                </span>
+              </div>
+              <div className="detail-line">
+                <span className="note">
+                  {applicant2_lhc === null || applicant2_lhc === undefined
+                    ? "Unknown - loading not applied"
+                    : applicant2_lhc === 0
+                      ? "No loading applied"
+                      : `${applicant2_age} years old, no prior cover - ${(applicant2_lhc * 100).toFixed(0)}% loading`}
+                </span>
+              </div>
             </div>
 
-            <div>
-              <p>
-                <strong>Applicant 2 - loaded hospital cost</strong>
-              </p>
-              <p>${applicant2LoadedCost.toFixed(2)}</p>
+            <div className="loaded-cost-line">
+              <div className="detail-line">
+                <span className="label">
+                  Applicant 2 - loaded hospital cost
+                </span>
+                <span className="value">
+                  ${applicant2LoadedCost.toFixed(2)}
+                </span>
+              </div>
             </div>
           </>
         )}
 
-        <div>
-          <p>
-            <strong>Hospital total</strong>
-          </p>
-          <p>${hospital_total.toFixed(2)}</p>
+        <div className="total-line">
+          <span>Hospital total</span>
+          <span className="value">${hospital_total.toFixed(2)}</span>
         </div>
 
-        <p>
+        <div className="lhc-statement">
           <em>{lhc_statement}</em>
-        </p>
+        </div>
       </div>
 
-      <hr />
       <div>
-        <h4>EXTRAS COVER</h4>
+        <h4 className="section-title">Extras Cover</h4>
 
-        <div>
-          <p>
+        <div className="detail-line">
+          <span className="label">
             {extras_cover} base ×{" "}
             {cover_type === "single" ? "1 adult" : "2 adults"}
-          </p>
-          <p>
+          </span>
+          <span className="value">
             ${(baseExtrasPrice * (cover_type === "single" ? 1 : 2)).toFixed(2)}
-          </p>
-          <p>Not subject to LHC loading</p>
+          </span>
+        </div>
+        <div className="detail-line">
+          <span className="note">Not subject to LHC loading</span>
         </div>
 
-        <div>
-          <p>
-            <strong>Extras total</strong>
-          </p>
-          <p>${extras_total.toFixed(2)}</p>
+        <div className="total-line">
+          <span>Extras total</span>
+          <span className="value">${extras_total.toFixed(2)}</span>
         </div>
       </div>
 
-      <hr />
-      <div>
-        <h4>TOTALS</h4>
+      <hr className="summary-divider" />
 
-        <div>
-          <p>
-            <strong>Monthly premium</strong>
-          </p>
-          <p>${monthly_premium.toFixed(2)}</p>
+      <div className="totals-section">
+        <h4 className="section-title">Totals</h4>
+
+        <div className="total-line">
+          <span>Monthly premium</span>
+          <span className="value">${monthly_premium.toFixed(2)}</span>
         </div>
 
-        <div>
-          <p>
-            <strong>Yearly premium before discount</strong>
-          </p>
-          <p>${yearly_before_discount.toFixed(2)}</p>
-          <p>Monthly × 12</p>
+        <div className="total-line">
+          <span>Yearly premium </span>
+          <span className="sub">monthly × 12</span>
+          <span className="value">${yearly_before_discount.toFixed(2)}</span>
         </div>
 
-        {/* only if Yearly */}
         {isYearly && (
-          <div>
-            <p>
-              <strong>Annual-payment discount ({annual_discount}%)</strong>
-            </p>
-            <p>${discountAmount.toFixed(2)}</p>
+          <div className="total-line discount-line">
+            <span>Annual-payment discount ({annual_discount}%)</span>
+            <span className="value"> -${discountAmount.toFixed(2)}</span>
           </div>
         )}
 
-        <div>
-          <p>
-            <strong>Yearly premium after discount</strong>
-          </p>
-          <p>${yearly_after_discount.toFixed(2)}</p>
+        {isYearly && (
+          <div className="total-line">
+            <span>Yearly premium after discount</span>
+            <span className="value">${yearly_after_discount.toFixed(2)}</span>
+          </div>
+        )}
+
+        <div className="total-line">
+          <span>Yearly premium</span>
+          <span className="value">${yearly_after_discount.toFixed(2)}</span>
         </div>
       </div>
 
-      <hr />
-      <div>
-        <h4>SUMMARY</h4>
+      <hr className="summary-divider" />
+
+      <div className="plain-summary">
         <p>
           This is a {cover_type} {hospital_cover} hospital and {extras_cover}{" "}
           extras quote for {customer_name}.
@@ -251,8 +248,9 @@ function QuoteSummary({ data }) {
               )} per year (no discount applied).`}
         </p>
       </div>
+
       {applicant1_cover_history === "not sure" && (
-        <div>
+        <div className="warning">
           <p>
             <strong>Warning:</strong> Applicant 1's cover history is unknown.
             LHC loading has not been applied. This quote may be inaccurate.
@@ -261,7 +259,7 @@ function QuoteSummary({ data }) {
       )}
 
       {applicant2_cover_history === "not sure" && isCoupleOrFamily && (
-        <div>
+        <div className="warning">
           <p>
             <strong>Warning:</strong> Applicant 2's cover history is unknown.
             LHC loading has not been applied. This quote may be inaccurate.
@@ -269,10 +267,9 @@ function QuoteSummary({ data }) {
         </div>
       )}
 
-      <hr />
-      <div>
-        <Link to={`/quotes/${data.id}/edit`}>Edit Quote</Link>
+      <div className="summary-nav">
         <Link to="/quotes">Back to List</Link>
+        <Link to={`/quotes/${data.id}/edit`}>Edit Quote</Link>
       </div>
     </div>
   );
