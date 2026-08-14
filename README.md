@@ -33,38 +33,20 @@ HealthCoverSim allows users to create, view, edit, and delete health insurance q
 ```
 CSE3CWA-HealthCoverSim/
 ├── backend/
-│ ├── db/
-│ │ ├── init.sql # Database schema
-│ │ └── healthcover.db # SQLite database (auto-generated)
-│ ├── src/
-│ │ ├── middleware/
-│ │ │ └── validator.js # Request validation
-│ │ ├── models/
-│ │ │ └── quoteModel.js # Database operations
-│ │ ├── routes/
-│ │ │ └── quotes.js # API endpoints
-│ │ ├── utils/
-│ │ │ └── calculator.js # Premium calculation logic
-│ │ └── server.js # Express server entry point
-│ ├── package.json
-│ └── .gitignore
+│   ├── db/
+│   │   ├── init.sql
+│   │   └── healthcover.db
+│   └── src/
+│       ├── middleware/
+│       ├── models/
+│       ├── routes/
+│       ├── utils/
+│       └── server.js
 ├── frontend/
-│ ├── src/
-│ │ ├── components/
-│ │ │ ├── HomePage.jsx # Landing page
-│ │ │ ├── QuoteList.jsx # List all quotes
-│ │ │ ├── QuoteForm.jsx # Create/Edit form
-│ │ │ ├── QuoteDetail.jsx # Single quote view
-│ │ │ └── QuoteSummary.jsx # Premium breakdown display
-│ │ ├── services/
-│ │ │ └── api.js # Axios API client
-│ │ ├── styles/
-│ │ │ └── main.css # Global styles
-│ │ ├── App.jsx # Main app with routing
-│ │ └── main.jsx # Entry point
-│ ├── index.html
-│ ├── package.json
-│ └── vite.config.js
+│   └── src/
+│       ├── components/
+│       ├── services/
+│       └── styles/
 ├── .gitignore
 └── README.md
 
